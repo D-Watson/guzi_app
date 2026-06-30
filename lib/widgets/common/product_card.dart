@@ -27,45 +27,51 @@ class ProductCard extends StatelessWidget {
     final priceFormat = NumberFormat('#,##0.00', 'zh_CN');
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.06),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // 商品图占位
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: AspectRatio(
-                aspectRatio: 0.75,
+                aspectRatio: 1.0,
                 child: Container(
                   color: Color(MockData.getPlaceholderColor(product.id.hashCode)),
                   alignment: Alignment.center,
-                  child: Text(
-                    '${product.ip.name}\n${product.characterName}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      '${product.ip.name}\n${product.characterName}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   // 标题
                   Text(
@@ -73,52 +79,61 @@ class ProductCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
                       height: 1.3,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   // 标签行
-                  Wrap(
-                    spacing: 4,
-                    runSpacing: 4,
-                    children: product.tags.take(3).map((tag) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: _tagColor(tag).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        tag,
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: _tagColor(tag),
-                          fontWeight: FontWeight.w500,
+                  if (product.tags.isNotEmpty)
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 2,
+                      children: product.tags.take(2).map((tag) => Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: _tagColor(tag).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(3),
                         ),
-                      ),
-                    )).toList(),
-                  ),
-                  const SizedBox(height: 6),
+                        child: Text(
+                          tag,
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: _tagColor(tag),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )).toList(),
+                    ),
+                  const SizedBox(height: 4),
                   // 价格
                   Row(
                     children: [
-                      Text(
-                        '¥${priceFormat.format(product.price)}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFE53935),
+                      Flexible(
+                        child: Text(
+                          '¥${priceFormat.format(product.price)}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFE53935),
+                          ),
                         ),
                       ),
                       if (product.depositPrice != null) ...[
-                        const SizedBox(width: 4),
-                        Text(
-                          '定¥${priceFormat.format(product.depositPrice)}',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Color(0xFFFF9800),
-                            fontWeight: FontWeight.w500,
+                        const SizedBox(width: 3),
+                        Flexible(
+                          child: Text(
+                            '定¥${priceFormat.format(product.depositPrice)}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 9,
+                              color: Color(0xFFFF9800),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],
@@ -129,18 +144,18 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       CircleAvatar(
-                        radius: 8,
+                        radius: 7,
                         backgroundColor: Colors.grey[300],
                       ),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 3),
                       Expanded(
                         child: Text(
                           product.seller.nickname,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
+                            fontSize: 10,
+                            color: Colors.grey[500],
                           ),
                         ),
                       ),
@@ -152,6 +167,6 @@ class ProductCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

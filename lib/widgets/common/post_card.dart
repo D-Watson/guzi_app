@@ -1,11 +1,9 @@
-// SECURITY-REVIEWED: 2026-06-29 | RULES: v2.6.0-draft
+// SECURITY-REVIEWED: 2026-06-30 | RULES: v2.6.0-draft
 /// 社区帖子卡片（穿插在商品流中）
 library;
 
 import 'package:flutter/material.dart';
 import 'package:gu_app/models/models.dart';
-import 'package:gu_app/data/mock_data.dart';
-import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
   final PostModel post;
@@ -37,11 +35,11 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeFormat = DateFormat('MM-dd HH:mm', 'zh_CN');
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(14),
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: _typeColor(post.type).withOpacity(0.04),
           borderRadius: BorderRadius.circular(12),
@@ -56,31 +54,36 @@ class PostCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: _typeColor(post.type),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(3),
                   ),
                   child: Text(
                     _typeLabel(post.type),
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 10,
+                      fontSize: 9,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                CircleAvatar(radius: 10, backgroundColor: Colors.grey[300]),
-                const SizedBox(width: 4),
-                Text(
-                  post.author.nickname,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[700], fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                Text(
-                  timeFormat.format(post.createdAt),
-                  style: TextStyle(fontSize: 10, color: Colors.grey[400]),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Row(
+                    children: [
+                      CircleAvatar(radius: 8, backgroundColor: Colors.grey[300]),
+                      const SizedBox(width: 3),
+                      Expanded(
+                        child: Text(
+                          post.author.nickname,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -91,8 +94,8 @@ class PostCard extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: 13,
-                height: 1.5,
+                fontSize: 12,
+                height: 1.4,
                 color: Color(0xFF333333),
               ),
             ),
@@ -100,13 +103,13 @@ class PostCard extends StatelessWidget {
             // 互动数据
             Row(
               children: [
-                Icon(Icons.favorite_border, size: 14, color: Colors.grey[500]),
-                const SizedBox(width: 3),
-                Text('${post.likeCount}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
-                const SizedBox(width: 16),
-                Icon(Icons.chat_bubble_outline, size: 14, color: Colors.grey[500]),
-                const SizedBox(width: 3),
-                Text('${post.commentCount}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
+                Icon(Icons.favorite_border, size: 12, color: Colors.grey[400]),
+                const SizedBox(width: 2),
+                Text('${post.likeCount}', style: TextStyle(fontSize: 10, color: Colors.grey[400])),
+                const SizedBox(width: 12),
+                Icon(Icons.chat_bubble_outline, size: 12, color: Colors.grey[400]),
+                const SizedBox(width: 2),
+                Text('${post.commentCount}', style: TextStyle(fontSize: 10, color: Colors.grey[400])),
               ],
             ),
           ],

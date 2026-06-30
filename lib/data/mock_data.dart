@@ -7,11 +7,11 @@ import 'package:gu_app/models/models.dart';
 class MockData {
   // ========== IP & 品类 ==========
   static List<IPModel> get ipList => [
-        IPModel(id: 'ip_1', name: '原神', iconUrl: '', characters: ['钟离', '雷电将军', '纳西妲', '芙宁娜', '那维莱特']),
-        IPModel(id: 'ip_2', name: '排球少年', iconUrl: '', characters: ['日向翔阳', '影山飞雄', '及川彻', '孤爪研磨']),
-        IPModel(id: 'ip_3', name: '咒术回战', iconUrl: '', characters: ['五条悟', '虎杖悠仁', '伏黑惠', '钉崎野蔷薇']),
-        IPModel(id: 'ip_4', name: '蓝色监狱', iconUrl: '', characters: ['洁世一', '蜂乐回', '凪诚士郎', '糸师凛']),
-        IPModel(id: 'ip_5', name: '鬼灭之刃', iconUrl: '', characters: ['灶门炭治郎', '我妻善逸', '嘴平伊之助', '甘露寺蜜璃']),
+        IPModel(id: 'ip_1', name: '原神', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/250px-Genshin_Impact_logo.svg.png', characters: ['钟离', '雷电将军', '纳西妲', '芙宁娜', '那维莱特']),
+        IPModel(id: 'ip_2', name: '排球少年', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Haiky%C5%AB_Volume_1.jpg/250px-Haiky%C5%AB_Volume_1.jpg', characters: ['日向翔阳', '影山飞雄', '及川彻', '孤爪研磨']),
+        IPModel(id: 'ip_3', name: '咒术回战', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Jujutsu_kaisen.jpg/250px-Jujutsu_kaisen.jpg', characters: ['五条悟', '虎杖悠仁', '伏黑惠', '钉崎野蔷薇']),
+        IPModel(id: 'ip_4', name: '蓝色监狱', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Blue_Lock_manga_volume_1.png/250px-Blue_Lock_manga_volume_1.png', characters: ['洁世一', '蜂乐回', '凪诚士郎', '糸师凛']),
+        IPModel(id: 'ip_5', name: '鬼灭之刃', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg/250px-Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg', characters: ['灶门炭治郎', '我妻善逸', '嘴平伊之助', '甘露寺蜜璃']),
         IPModel(id: 'ip_6', name: '文豪野犬', iconUrl: '', characters: ['太宰治', '中岛敦', '芥川龙之介']),
         IPModel(id: 'ip_7', name: '时光代理人', iconUrl: '', characters: ['程小时', '陆光', '乔苓']),
         IPModel(id: 'ip_8', name: '名侦探柯南', iconUrl: '', characters: ['工藤新一', '怪盗基德', '降谷零']),

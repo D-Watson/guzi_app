@@ -112,7 +112,8 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: 8),
               // 消息按钮
               IconButton(
-                icon: const Icon(Icons.notifications_outlined, color: Color(0xFF333333)),
+                icon: const Icon(Icons.notifications_outlined,
+                    color: Color(0xFF333333)),
                 onPressed: () {},
                 iconSize: 22,
                 constraints: const BoxConstraints(),
@@ -143,10 +144,11 @@ class _HomePageState extends State<HomePage> {
           Positioned(
             right: -20,
             bottom: -20,
-            child: Icon(Icons.auto_awesome, size: 120, color: Colors.white.withOpacity(0.15)),
+            child: Icon(Icons.auto_awesome,
+                size: 120, color: Colors.white.withOpacity(0.15)),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
+          const Padding(
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -166,8 +168,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 12),
                 Chip(
-                  label: Text('查看活动', style: TextStyle(color: Colors.white, fontSize: 12)),
-                  backgroundColor: Colors.white24,
+                  label: Text('查看活动',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 217, 12, 80),
+                          fontSize: 12)),
+                  backgroundColor: Color.fromARGB(59, 226, 59, 187),
                   padding: EdgeInsets.zero,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   side: BorderSide.none,
@@ -190,32 +195,82 @@ class _HomePageState extends State<HomePage> {
           // 快捷入口：按IP找 & 按品类找
           Row(
             children: [
-              _buildQuickEntryChip(Icons.explore, '按IP找', const Color(0xFF6C5CE7)),
+              _buildQuickEntryChip(
+                  Icons.explore, '按IP找', const Color(0xFF6C5CE7)),
               const SizedBox(width: 12),
-              _buildQuickEntryChip(Icons.category, '按品类找', const Color(0xFF00B4D8)),
+              _buildQuickEntryChip(
+                  Icons.category, '按品类找', const Color(0xFF00B4D8)),
               const SizedBox(width: 12),
-              _buildQuickEntryChip(Icons.groups, '拼团广场', const Color(0xFFE17055)),
+              _buildQuickEntryChip(
+                  Icons.groups, '拼团广场', const Color(0xFFE17055)),
               const SizedBox(width: 12),
-              _buildQuickEntryChip(Icons.local_fire_department, '热门推荐', const Color(0xFFE53935)),
+              _buildQuickEntryChip(
+                  Icons.local_fire_department, '热门推荐', const Color(0xFFE53935)),
             ],
           ),
           const SizedBox(height: 16),
-          // IP 快捷入口
+          // IP 快捷入口 - 横滑展示全部4字IP名
           SizedBox(
-            height: 36,
+            height: 82,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: MockData.ipList.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              separatorBuilder: (_, __) => const SizedBox(width: 14),
               itemBuilder: (context, index) {
                 final ip = MockData.ipList[index];
-                return ActionChip(
-                  label: Text(ip.name, style: const TextStyle(fontSize: 12, color: Color(0xFF333333))),
-                  backgroundColor: Colors.grey[100],
-                  side: BorderSide.none,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  onPressed: () {},
+                final colors = [
+                  const Color(0xFF6C5CE7),
+                  const Color(0xFF00B4D8),
+                  const Color(0xFFE17055),
+                  const Color(0xFF4CAF50),
+                  const Color(0xFFE53935),
+                ];
+                return GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: colors[index % colors.length].withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: colors[index % colors.length].withValues(alpha: 0.25),
+                          ),
+                          image: ip.iconUrl.isNotEmpty
+                              ? DecorationImage(
+                                  image: NetworkImage(ip.iconUrl),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
+                        ),
+                        child: ip.iconUrl.isEmpty
+                            ? Center(
+                                child: Text(
+                                  ip.name.substring(0, ip.name.length <= 2 ? ip.name.length : 2),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: colors[index % colors.length],
+                                  ),
+                                ),
+                              )
+                            : null,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        ip.name,
+                        overflow: TextOverflow.visible,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF333333),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
@@ -231,7 +286,9 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 final cat = MockData.categoryList[index];
                 return ActionChip(
-                  label: Text('${cat.icon} ${cat.name}', style: const TextStyle(fontSize: 12, color: Color(0xFF333333))),
+                  label: Text('${cat.icon} ${cat.name}',
+                      style: const TextStyle(
+                          fontSize: 12, color: Color(0xFF333333))),
                   backgroundColor: Colors.grey[100],
                   side: BorderSide.none,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -259,7 +316,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             Icon(icon, size: 16, color: color),
             const SizedBox(width: 4),
-            Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: color)),
+            Text(label,
+                style: TextStyle(
+                    fontSize: 12, fontWeight: FontWeight.w500, color: color)),
           ],
         ),
       ),
@@ -274,7 +333,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisCount: 2,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
-          childAspectRatio: 0.68,
+          childAspectRatio: 0.6,
         ),
         delegate: SliverChildBuilderDelegate(
           (context, index) {
@@ -310,6 +369,10 @@ class _FeedItem {
   final ProductModel? product;
   final PostModel? post;
 
-  _FeedItem.product(this.product) : type = _FeedType.product, post = null;
-  _FeedItem.post(this.post) : type = _FeedType.post, product = null;
+  _FeedItem.product(this.product)
+      : type = _FeedType.product,
+        post = null;
+  _FeedItem.post(this.post)
+      : type = _FeedType.post,
+        product = null;
 }
