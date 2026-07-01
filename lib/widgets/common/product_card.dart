@@ -4,7 +4,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:gu_app/models/models.dart';
-import 'package:gu_app/data/mock_data.dart';
+import 'package:gu_app/services/favorite_service.dart';
 import 'package:intl/intl.dart';
 
 class ProductCard extends StatelessWidget {
@@ -12,6 +12,25 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ProductCard({super.key, required this.product, this.onTap});
+
+  Widget _buildPlaceholder() {
+    return Container(
+      color: Colors.grey[200],
+      alignment: Alignment.center,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          '${product.ip.name}\n${product.characterName}',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
 
   Color _tagColor(String tag) {
     if (tag.contains('现货')) return const Color(0xFF4CAF50);
@@ -35,7 +54,7 @@ class ProductCard extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.06),
+                color: Colors.black.withValues(alpha: 0.06),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -49,21 +68,46 @@ class ProductCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: AspectRatio(
                 aspectRatio: 1.0,
-                child: Container(
-                  color: Color(MockData.getPlaceholderColor(product.id.hashCode)),
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      '${product.ip.name}\n${product.characterName}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                child: Stack(
+                  children: [
+                    if (product.imageUrls.isNotEmpty && product.imageUrls.first.isNotEmpty)
+                      Image.network(
+                        product.imageUrls.first,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        errorBuilder: (_, __, ___) => _buildPlaceholder(),
+                      )
+                    else
+                      _buildPlaceholder(),
+                    // 收藏图标
+                    Positioned(
+                      top: 6,
+                      right: 6,
+                      child: ListenableBuilder(
+                        listenable: FavoriteService(),
+                        builder: (context, _) {
+                          final isFav = FavoriteService().isFavorited(product.id);
+                          return GestureDetector(
+                            onTap: () => FavoriteService().toggle(product.id),
+                            child: Container(
+                              width: 28,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.15),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: isFav ? const Color(0xFFE53935) : Colors.white,
+                                size: 16,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
@@ -93,7 +137,7 @@ class ProductCard extends StatelessWidget {
                       children: product.tags.take(2).map((tag) => Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                         decoration: BoxDecoration(
-                          color: _tagColor(tag).withOpacity(0.1),
+                          color: _tagColor(tag).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(3),
                         ),
                         child: Text(

@@ -125,6 +125,7 @@ class GroupBuyModel {
   final String title;
   final IPModel ip;
   final String characterName;
+  final String imageUrl; // 商品示意图片
   final String leaderId;
   final String leaderNickname;
   final int currentCount; // 已上车人数
@@ -143,6 +144,7 @@ class GroupBuyModel {
     required this.title,
     required this.ip,
     this.characterName = '',
+    this.imageUrl = '',
     required this.leaderId,
     required this.leaderNickname,
     required this.currentCount,
@@ -231,5 +233,43 @@ class MessageModel {
     required this.content,
     required this.createdAt,
     this.isRead = false,
+  });
+}
+
+/// 订单状态
+enum OrderStatus {
+  pendingPayment, // 待付款
+  paid,           // 已付款
+  shipped,        // 已发货
+  received,       // 已收货
+  cancelled,      // 已取消
+}
+
+/// 订单模型
+class OrderModel {
+  final String id;
+  final String productId;
+  final String productTitle;
+  final double productPrice;
+  final String productImageUrl;
+  final String tradeTypeLabel;
+  final double? depositAmount;
+  final double totalAmount;
+  final int quantity;
+  final OrderStatus status;
+  final DateTime createdAt;
+
+  OrderModel({
+    required this.id,
+    required this.productId,
+    required this.productTitle,
+    required this.productPrice,
+    this.productImageUrl = '',
+    this.tradeTypeLabel = '一口价',
+    this.depositAmount,
+    required this.totalAmount,
+    this.quantity = 1,
+    this.status = OrderStatus.pendingPayment,
+    required this.createdAt,
   });
 }

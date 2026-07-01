@@ -8,6 +8,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:gu_app/pages/home/home_page.dart';
 import 'package:gu_app/pages/publish/publish_page.dart';
 import 'package:gu_app/pages/group_buy/group_buy_page.dart';
+import 'package:gu_app/pages/favorites/favorites_page.dart';
+import 'package:gu_app/pages/orders/orders_page.dart';
+import 'package:gu_app/services/favorite_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -152,12 +155,12 @@ class _ProfilePage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: const Offset(0, 2))],
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 6, offset: const Offset(0, 2))],
             ),
             child: Row(children: [
               CircleAvatar(
                 radius: 32,
-                backgroundColor: const Color(0xFF6C5CE7).withOpacity(0.2),
+                backgroundColor: const Color(0xFF6C5CE7).withValues(alpha: 0.2),
                 child: const Icon(Icons.person, color: Color(0xFF6C5CE7), size: 32),
               ),
               const SizedBox(width: 16),
@@ -184,19 +187,23 @@ class _ProfilePage extends StatelessWidget {
               children: [
                 _buildStatItem('42', '成交', Icons.check_circle),
                 _buildStatItem('99%', '好评率', Icons.star),
-                _buildStatItem('128', '收藏', Icons.favorite),
+                _buildStatItem('${FavoriteService().count}', '收藏', Icons.favorite),
                 _buildStatItem('3', '在售', Icons.sell),
               ],
             ),
           ),
           const SizedBox(height: 16),
           // 功能列表
-          _buildMenuItem(Icons.shopping_bag_outlined, '我的订单', '查看全部订单'),
-          _buildMenuItem(Icons.inventory_2_outlined, '在售商品', '管理已发布的商品'),
-          _buildMenuItem(Icons.favorite_outline, '我的收藏', '收藏的商品和帖子'),
-          _buildMenuItem(Icons.groups_outlined, '我的拼团', '参与的拼团进度'),
-          _buildMenuItem(Icons.history, '浏览历史', '最近浏览的商品'),
-          _buildMenuItem(Icons.settings_outlined, '设置', '账号与偏好设置'),
+          _buildMenuItem(context, Icons.shopping_bag_outlined, '我的订单', '查看全部订单', () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const OrdersPage()));
+          }),
+          _buildMenuItem(context, Icons.inventory_2_outlined, '在售商品', '管理已发布的商品', () {}),
+          _buildMenuItem(context, Icons.favorite_outline, '我的收藏', '收藏的商品和帖子', () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const FavoritesPage()));
+          }),
+          _buildMenuItem(context, Icons.groups_outlined, '我的拼团', '参与的拼团进度', () {}),
+          _buildMenuItem(context, Icons.history, '浏览历史', '最近浏览的商品', () {}),
+          _buildMenuItem(context, Icons.settings_outlined, '设置', '账号与偏好设置', () {}),
         ],
       ),
     );
@@ -211,7 +218,7 @@ class _ProfilePage extends StatelessWidget {
     ]);
   }
 
-  Widget _buildMenuItem(IconData icon, String title, String subtitle) {
+  Widget _buildMenuItem(BuildContext context, IconData icon, String title, String subtitle, VoidCallback onTap) {
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       color: Colors.white,
@@ -220,7 +227,7 @@ class _ProfilePage extends StatelessWidget {
         title: Text(title, style: const TextStyle(fontSize: 15)),
         subtitle: Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.grey[500])),
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }

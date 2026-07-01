@@ -75,7 +75,7 @@ class MockData {
         ProductModel(
           id: 'p_1',
           title: '原神·钟离「天星」C服全套',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/250px-Genshin_Impact_logo.svg.png'],
           price: 399.0,
           depositPrice: 120.0,
           finalPrice: 279.0,
@@ -101,7 +101,7 @@ class MockData {
         ProductModel(
           id: 'p_2',
           title: '排球少年·日向翔阳吧唧套装',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Haiky%C5%AB_Volume_1.jpg/250px-Haiky%C5%AB_Volume_1.jpg'],
           price: 68.0,
           ip: ipList[1],
           characterName: '日向翔阳',
@@ -121,7 +121,7 @@ class MockData {
         ProductModel(
           id: 'p_3',
           title: '咒术回战·五条悟立牌',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Jujutsu_kaisen.jpg/250px-Jujutsu_kaisen.jpg'],
           price: 45.0,
           ip: ipList[2],
           characterName: '五条悟',
@@ -141,7 +141,7 @@ class MockData {
         ProductModel(
           id: 'p_4',
           title: '蓝色监狱·糸师凛C服订制',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Blue_Lock_manga_volume_1.png/250px-Blue_Lock_manga_volume_1.png'],
           price: 520.0,
           depositPrice: 150.0,
           finalPrice: 370.0,
@@ -169,7 +169,7 @@ class MockData {
         ProductModel(
           id: 'p_5',
           title: '鬼灭之刃·甘露寺蜜璃假发',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg/250px-Demon_Slayer_-_Kimetsu_no_Yaiba%2C_volume_1.jpg'],
           price: 158.0,
           ip: ipList[4],
           characterName: '甘露寺蜜璃',
@@ -189,7 +189,7 @@ class MockData {
         ProductModel(
           id: 'p_6',
           title: '文豪野犬·太宰治大衣 C服',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/f/f8/Bung%C5%8D_Stray_Dogs_volume_1.jpg'],
           price: 350.0,
           ip: ipList[5],
           characterName: '太宰治',
@@ -232,7 +232,7 @@ class MockData {
         ProductModel(
           id: 'p_8',
           title: '原神·芙宁娜C服+假发套装',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/250px-Genshin_Impact_logo.svg.png'],
           price: 680.0,
           depositPrice: 200.0,
           finalPrice: 480.0,
@@ -259,7 +259,7 @@ class MockData {
         ProductModel(
           id: 'p_9',
           title: '进击的巨人·利威尔兵长徽章',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Shingeki_no_Kyojin_manga_volume_1.jpg/250px-Shingeki_no_Kyojin_manga_volume_1.jpg'],
           price: 28.0,
           ip: ipList[8],
           characterName: '利威尔',
@@ -299,7 +299,7 @@ class MockData {
         ProductModel(
           id: 'p_11',
           title: '名侦探柯南·怪盗基德手办',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/3/3f/Case_Closed_Volume_36.png/250px-Case_Closed_Volume_36.png'],
           price: 268.0,
           ip: ipList[7],
           characterName: '怪盗基德',
@@ -319,7 +319,7 @@ class MockData {
         ProductModel(
           id: 'p_12',
           title: '排球少年·影山飞雄C服',
-          imageUrls: [''],
+          imageUrls: ['https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Haiky%C5%AB_Volume_1.jpg/250px-Haiky%C5%AB_Volume_1.jpg'],
           price: 420.0,
           depositPrice: 130.0,
           finalPrice: 290.0,
@@ -396,6 +396,7 @@ class MockData {
           title: '蓝锁糸师凛C服拼团',
           ip: ipList[3],
           characterName: '糸师凛',
+          imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Blue_Lock_manga_volume_1.png/250px-Blue_Lock_manga_volume_1.png',
           leaderId: 'u_5',
           leaderNickname: '同好会会长',
           currentCount: 8,
@@ -414,6 +415,7 @@ class MockData {
           title: '原神芙宁娜全套C服拼团',
           ip: ipList[0],
           characterName: '芙宁娜',
+          imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/250px-Genshin_Impact_logo.svg.png',
           leaderId: 'u_1',
           leaderNickname: '二次元小铺',
           currentCount: 5,
@@ -432,6 +434,7 @@ class MockData {
           title: '排球少年影山飞雄C服拼团',
           ip: ipList[1],
           characterName: '影山飞雄',
+          imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Haiky%C5%AB_Volume_1.jpg/250px-Haiky%C5%AB_Volume_1.jpg',
           leaderId: 'u_7',
           leaderNickname: 'coser小羽',
           currentCount: 6,
@@ -450,6 +453,7 @@ class MockData {
           title: '咒术回战吧唧20个拼团',
           ip: ipList[2],
           characterName: '五条悟',
+          imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Jujutsu_kaisen.jpg/250px-Jujutsu_kaisen.jpg',
           leaderId: 'u_3',
           leaderNickname: '吃谷人A',
           currentCount: 12,
