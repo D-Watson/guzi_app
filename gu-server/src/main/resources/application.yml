@@ -21,3 +21,10 @@ spring:
       mode: always
       schema-locations: classpath:db/schema.sql
       data-locations: classpath:db/seed.sql
+
+admin:
+  datasource:
+    url: jdbc:mysql://${ADMIN_DB_HOST:localhost}:${ADMIN_DB_PORT:3306}/${ADMIN_DB_NAME:product_review}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${ADMIN_DB_USERNAME:root}
+    password: ${ADMIN_DB_PASSWORD:root123}
+    driver-class-name: com.mysql.cj.jdbc.Driver

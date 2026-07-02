@@ -10,8 +10,8 @@ public class Favorite {
     private Long id;
     @Column(length = 32)
     private String userId;
-    @Column(length = 32)
-    private String productId;
+    @Column(name = "product_id")
+    private Long productId;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Favorite() {}
@@ -19,8 +19,8 @@ public class Favorite {
     public void setId(Long id) { this.id = id; }
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
-    public String getProductId() { return productId; }
-    public void setProductId(String productId) { this.productId = productId; }
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

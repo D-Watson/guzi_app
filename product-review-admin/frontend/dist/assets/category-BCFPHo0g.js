@@ -1,0 +1,1 @@
+import{y as t}from"./index-B4yJ_9bM.js";function a(){return t.get("/categories/tree")}function n(e){return t.post("/categories",e)}function u(e,r){return t.put(`/categories/${e}`,r)}function g(e){return t.delete(`/categories/${e}`)}export{n as c,g as d,a as g,u};

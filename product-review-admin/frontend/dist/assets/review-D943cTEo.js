@@ -1,0 +1,1 @@
+import{y as t}from"./index-B4yJ_9bM.js";function i(e){return t.get("/admin/reviews/pending",{params:e})}function o(e){return t.get("/admin/products",{params:e})}function u(e){return t.get(`/admin/products/${e}`)}function s(e){return t.post(`/admin/reviews/${e}/approve`)}function a(e,r){return t.post(`/admin/reviews/${e}/reject`,r)}export{i as a,s as b,u as c,o as g,a as r};

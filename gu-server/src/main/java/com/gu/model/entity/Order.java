@@ -11,8 +11,8 @@ public class Order {
     private String id;
     @Column(length = 32)
     private String userId;
-    @Column(length = 32)
-    private String productId;
+    @Column(name = "product_id")
+    private Long productId;
     @Column(nullable = false, length = 200)
     private String productTitle;
     @Column(nullable = false, precision = 10, scale = 2)
@@ -37,7 +37,7 @@ public class Order {
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
     public String getProductId() { return productId; }
-    public void setProductId(String productId) { this.productId = productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
     public String getProductTitle() { return productTitle; }
     public void setProductTitle(String productTitle) { this.productTitle = productTitle; }
     public BigDecimal getProductPrice() { return productPrice; }

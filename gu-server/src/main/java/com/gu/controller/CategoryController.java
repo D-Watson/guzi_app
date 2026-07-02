@@ -1,27 +1,30 @@
+// SECURITY-REVIEWED: 2026-07-02 | RULES: v2.6.0-draft
 package com.gu.controller;
 
+import com.gu.admin.entity.AdminCategory;
+import com.gu.admin.repository.AdminCategoryRepository;
 import com.gu.model.dto.ApiResponse;
-import com.gu.model.entity.Category;
-import com.gu.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
-    private final CategoryRepository categoryRepository;
 
-    public CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private final AdminCategoryRepository adminCategoryRepository;
+
+    public CategoryController(AdminCategoryRepository adminCategoryRepository) {
+        this.adminCategoryRepository = adminCategoryRepository;
     }
 
     @GetMapping
     public ApiResponse<List<Map<String, Object>>> getAll() {
-        List<Category> cats = categoryRepository.findAll();
+        List<AdminCategory> cats = adminCategoryRepository.findByParentIdIsNullOrderBySortOrderAsc();
         List<Map<String, Object>> result = cats.stream().map(c -> Map.<String, Object>of(
-            "id", c.getId(),
-            "name", c.getName(),
-            "icon", c.getIcon() != null ? c.getIcon() : ""
+                "id", c.getId(),
+                "name", c.getName(),
+                "icon", c.getIcon() != null ? c.getIcon() : ""
         )).toList();
         return ApiResponse.success(result);
     }

@@ -22,14 +22,6 @@ CREATE TABLE IF NOT EXISTS ips (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ========== 品类 ==========
-CREATE TABLE IF NOT EXISTS categories (
-    id VARCHAR(32) NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    icon VARCHAR(10) DEFAULT '',
-    PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ========== Banner ==========
 CREATE TABLE IF NOT EXISTS banners (
     id VARCHAR(32) NOT NULL,
@@ -38,46 +30,6 @@ CREATE TABLE IF NOT EXISTS banners (
     subtitle VARCHAR(200) DEFAULT '',
     sort_order INT DEFAULT 0,
     PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ========== 商品 ==========
-CREATE TABLE IF NOT EXISTS products (
-    id VARCHAR(32) NOT NULL,
-    title VARCHAR(200) NOT NULL,
-    image_urls TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    deposit_price DECIMAL(10,2),
-    final_price DECIMAL(10,2),
-    ip_id VARCHAR(32) NOT NULL,
-    character_name VARCHAR(50) DEFAULT '',
-    category_id VARCHAR(32) NOT NULL,
-    trade_type VARCHAR(20) DEFAULT 'fixedPrice',
-    status VARCHAR(20) DEFAULT 'active',
-    `condition` VARCHAR(20) DEFAULT 'brandNew',
-    seller_id VARCHAR(32) NOT NULL,
-    rating DOUBLE DEFAULT 5.0,
-    sales_count INT DEFAULT 0,
-    favorite_count INT DEFAULT 0,
-    tags TEXT,
-    group_buy_id VARCHAR(32),
-    final_payment_deadline DATETIME,
-    is_spot TINYINT(1) DEFAULT 0,
-    is_new TINYINT(1) DEFAULT 1,
-    size_info VARCHAR(500),
-    production_time VARCHAR(200),
-    included_parts TEXT,
-    material_info VARCHAR(500),
-    defects_description TEXT,
-    seller_completed_orders INT DEFAULT 0,
-    seller_good_rate DOUBLE DEFAULT 1.0,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    KEY idx_ip_id (ip_id),
-    KEY idx_category_id (category_id),
-    KEY idx_seller_id (seller_id),
-    CONSTRAINT fk_product_ip FOREIGN KEY (ip_id) REFERENCES ips(id),
-    CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES categories(id),
-    CONSTRAINT fk_product_seller FOREIGN KEY (seller_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ========== 拼团 ==========
@@ -124,7 +76,7 @@ CREATE TABLE IF NOT EXISTS posts (
 CREATE TABLE IF NOT EXISTS favorites (
     id BIGINT AUTO_INCREMENT NOT NULL,
     user_id VARCHAR(32),
-    product_id VARCHAR(32),
+    product_id BIGINT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uk_user_product (user_id, product_id)
@@ -134,7 +86,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 CREATE TABLE IF NOT EXISTS orders (
     id VARCHAR(32) NOT NULL,
     user_id VARCHAR(32),
-    product_id VARCHAR(32),
+    product_id BIGINT,
     product_title VARCHAR(200) NOT NULL,
     product_price DECIMAL(10,2) NOT NULL,
     product_image_url VARCHAR(500) DEFAULT '',

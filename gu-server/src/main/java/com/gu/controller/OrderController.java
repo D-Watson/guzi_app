@@ -1,3 +1,4 @@
+// SECURITY-REVIEWED: 2026-07-02 | RULES: v2.6.0-draft
 package com.gu.controller;
 
 import com.gu.model.dto.ApiResponse;
@@ -5,11 +6,13 @@ import com.gu.model.dto.CreateOrderRequest;
 import com.gu.model.entity.Order;
 import com.gu.service.OrderService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
+
     private final OrderService orderService;
 
     public OrderController(OrderService orderService) {

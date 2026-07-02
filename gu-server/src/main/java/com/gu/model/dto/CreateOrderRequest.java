@@ -1,12 +1,12 @@
 package com.gu.model.dto;
 
 public class CreateOrderRequest {
-    private String productId;
+    private Long productId;
     private int quantity = 1;
     private String tradeType;
 
-    public String getProductId() { return productId; }
-    public void setProductId(String productId) { this.productId = productId; }
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public String getTradeType() { return tradeType; }
