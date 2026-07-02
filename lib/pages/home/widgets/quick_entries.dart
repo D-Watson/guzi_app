@@ -18,15 +18,23 @@ class QuickEntries extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 快捷入口行
-          Row(
+          const Row(
             children: [
-              const ChipButton(icon: Icons.explore, label: '按IP找', color: Color(0xFF6C5CE7)),
-              const SizedBox(width: 12),
-              const ChipButton(icon: Icons.category, label: '按品类找', color: Color(0xFF00B4D8)),
-              const SizedBox(width: 12),
-              const ChipButton(icon: Icons.groups, label: '拼团广场', color: Color(0xFFE17055)),
-              const SizedBox(width: 12),
-              const ChipButton(icon: Icons.local_fire_department, label: '热门推荐', color: Color(0xFFE53935)),
+              ChipButton(
+                  icon: Icons.explore, label: '按IP找', color: Color(0xFF6C5CE7)),
+              SizedBox(width: 12),
+              ChipButton(
+                  icon: Icons.category,
+                  label: '按品类找',
+                  color: Color(0xFF00B4D8)),
+              SizedBox(width: 12),
+              ChipButton(
+                  icon: Icons.groups, label: '拼团广场', color: Color(0xFFE17055)),
+              SizedBox(width: 12),
+              ChipButton(
+                  icon: Icons.local_fire_department,
+                  label: '热门推荐',
+                  color: Color(0xFFE53935)),
             ],
           ),
           const SizedBox(height: 16),
@@ -55,19 +63,24 @@ class QuickEntries extends StatelessWidget {
                         width: 56,
                         height: 56,
                         decoration: BoxDecoration(
-                          color: colors[index % colors.length].withValues(alpha: 0.12),
+                          color: colors[index % colors.length]
+                              .withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: colors[index % colors.length].withValues(alpha: 0.25),
+                            color: colors[index % colors.length]
+                                .withValues(alpha: 0.25),
                           ),
                           image: ip.iconUrl.isNotEmpty
-                              ? DecorationImage(image: NetworkImage(ip.iconUrl), fit: BoxFit.cover)
+                              ? DecorationImage(
+                                  image: NetworkImage(ip.iconUrl),
+                                  fit: BoxFit.cover)
                               : null,
                         ),
                         child: ip.iconUrl.isEmpty
                             ? Center(
                                 child: Text(
-                                  ip.name.substring(0, ip.name.length <= 2 ? ip.name.length : 2),
+                                  ip.name.substring(0,
+                                      ip.name.length <= 2 ? ip.name.length : 2),
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -105,7 +118,8 @@ class QuickEntries extends StatelessWidget {
                 final cat = MockData.categoryList[index];
                 return ActionChip(
                   label: Text('${cat.icon} ${cat.name}',
-                      style: const TextStyle(fontSize: 12, color: Color(0xFF333333))),
+                      style: const TextStyle(
+                          fontSize: 12, color: Color(0xFF333333))),
                   backgroundColor: Colors.grey[100],
                   side: BorderSide.none,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
