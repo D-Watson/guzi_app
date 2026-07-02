@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `category` (
     path VARCHAR(500) DEFAULT NULL COMMENT '物化路径 如 ",1,5,"',
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted TINYINT(1) DEFAULT 0,
     INDEX idx_parent_id (parent_id),
     INDEX idx_level (level)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='分类表（树形结构）';
@@ -63,5 +64,5 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 
 -- 种子数据：默认管理员 admin/admin123
 INSERT INTO `user` (username, password, nickname, role, status)
-VALUES ('admin', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '系统管理员', 'ADMIN', 'ENABLED')
+VALUES ('admin', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '系统管理员', 'ADMIN', 'ENABLED')
 ON DUPLICATE KEY UPDATE nickname = VALUES(nickname);

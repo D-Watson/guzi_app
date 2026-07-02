@@ -107,8 +107,8 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] as String,
-      nickname: json['nickname'] as String,
+      id: json['id']?.toString() ?? '',
+      nickname: (json['nickname'] as String?) ?? '',
       avatarUrl: (json['avatarUrl'] as String?) ?? '',
       creditScore: (json['creditScore'] as num?)?.toDouble() ?? 100,
       completedOrders: (json['completedOrders'] as num?)?.toInt() ?? 0,
@@ -134,8 +134,8 @@ class IPModel {
 
   factory IPModel.fromJson(Map<String, dynamic> json) {
     return IPModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id']?.toString() ?? '',
+      name: (json['name'] as String?) ?? '',
       iconUrl: (json['iconUrl'] as String?) ?? '',
       characters: (json['characters'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -155,8 +155,8 @@ class CategoryModel {
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id']?.toString() ?? '',
+      name: (json['name'] as String?) ?? '',
       icon: (json['icon'] as String?) ?? '',
     );
   }
@@ -238,30 +238,37 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
+    // id 可能是数字或字符串
+    final id = json['id']?.toString() ?? '';
+    // imageUrls 字段（服务端统一用 imageUrls）
+    final imageUrls = (json['imageUrls'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
     return ProductModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      imageUrls: (json['imageUrls'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
-      price: (json['price'] as num).toDouble(),
+      id: id,
+      title: json['title'] as String? ?? '',
+      imageUrls: imageUrls,
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
       depositPrice: (json['depositPrice'] as num?)?.toDouble(),
       finalPrice: (json['finalPrice'] as num?)?.toDouble(),
-      ip: IPModel.fromJson(json['ip'] as Map<String, dynamic>),
+      ip: json['ip'] != null
+          ? IPModel.fromJson(json['ip'] as Map<String, dynamic>)
+          : IPModel(id: '', name: ''),
       characterName: (json['characterName'] as String?) ?? '',
-      category: CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
+      category: json['category'] != null
+          ? CategoryModel.fromJson(json['category'] as Map<String, dynamic>)
+          : CategoryModel(id: '', name: ''),
       tradeType: TradeTypeX.fromString((json['tradeType'] as String?) ?? 'fixedPrice'),
       status: _parseStatus((json['status'] as String?) ?? 'active'),
       condition: ConditionX.fromString((json['condition'] as String?) ?? 'brandNew'),
-      seller: UserModel.fromJson(json['seller'] as Map<String, dynamic>),
+      seller: json['seller'] != null
+          ? UserModel.fromJson(json['seller'] as Map<String, dynamic>)
+          : UserModel(id: '', nickname: '商家'),
       rating: (json['rating'] as num?)?.toDouble() ?? 5.0,
       salesCount: (json['salesCount'] as num?)?.toInt() ?? 0,
       favoriteCount: (json['favoriteCount'] as num?)?.toInt() ?? 0,
-      tags: (json['tags'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
       groupBuyId: json['groupBuyId'] as String?,
       finalPaymentDeadline: json['finalPaymentDeadline'] != null
           ? DateTime.tryParse(json['finalPaymentDeadline'] as String)

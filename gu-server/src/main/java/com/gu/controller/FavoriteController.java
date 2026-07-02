@@ -20,8 +20,8 @@ public class FavoriteController {
     }
 
     @GetMapping
-    public ApiResponse<List<Long>> getFavorites() {
-        return ApiResponse.success(favoriteService.getFavoriteIds("u_current"));
+    public ApiResponse<List<String>> getFavorites() {
+        return ApiResponse.success(favoriteService.getFavoriteStringIds("u_current"));
     }
 
     @GetMapping("/products")
@@ -37,14 +37,14 @@ public class FavoriteController {
     }
 
     @PostMapping("/{productId}")
-    public ApiResponse<FavoriteToggleResponse> add(@PathVariable Long productId) {
-        boolean nowFavorited = favoriteService.toggle(productId);
-        return ApiResponse.success(new FavoriteToggleResponse(productId, nowFavorited));
+    public ApiResponse<FavoriteToggleResponse> add(@PathVariable String productId) {
+        boolean nowFavorited = favoriteService.toggle(Long.parseLong(productId));
+        return ApiResponse.success(new FavoriteToggleResponse(Long.parseLong(productId), nowFavorited));
     }
 
     @DeleteMapping("/{productId}")
-    public ApiResponse<FavoriteToggleResponse> remove(@PathVariable Long productId) {
-        boolean nowFavorited = favoriteService.toggle(productId);
-        return ApiResponse.success(new FavoriteToggleResponse(productId, nowFavorited));
+    public ApiResponse<FavoriteToggleResponse> remove(@PathVariable String productId) {
+        boolean nowFavorited = favoriteService.toggle(Long.parseLong(productId));
+        return ApiResponse.success(new FavoriteToggleResponse(Long.parseLong(productId), nowFavorited));
     }
 }

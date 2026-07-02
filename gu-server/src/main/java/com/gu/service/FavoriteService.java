@@ -8,9 +8,11 @@ import com.gu.repository.FavoriteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class FavoriteService {
@@ -28,6 +30,11 @@ public class FavoriteService {
     public List<Long> getFavoriteIds(String userId) {
         return favoriteRepository.findByUserId(userId)
                 .stream().map(Favorite::getProductId).toList();
+    }
+
+    public List<String> getFavoriteStringIds(String userId) {
+        return getFavoriteIds(userId).stream()
+                .map(String::valueOf).toList();
     }
 
     public List<Map<String, Object>> getFavoriteProductMaps(String userId) {
@@ -58,22 +65,33 @@ public class FavoriteService {
 
     private Map<String, Object> toProductMap(AdminProduct p) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("id", p.getId());
+        map.put("id", String.valueOf(p.getId()));
         map.put("title", p.getName());
-        map.put("description", p.getDescription());
+        map.put("description", p.getDescription() != null ? p.getDescription() : "");
         map.put("price", p.getPrice());
         map.put("stock", p.getStock());
-        map.put("coverImage", p.getCoverImage() != null ? p.getCoverImage() : "");
-        map.put("categoryId", p.getCategoryId());
 
         List<String> imageUrls = new ArrayList<>();
-        if (p.getImages() != null) {
+        if (p.getImages() != null && !p.getImages().isEmpty()) {
             imageUrls = p.getImages().stream()
-                    .sorted(java.util.Comparator.comparingInt(AdminProductImage::getSortOrder))
+                    .sorted(Comparator.comparingInt(AdminProductImage::getSortOrder))
                     .map(AdminProductImage::getUrl)
-                    .toList();
+                    .collect(Collectors.toList());
+        } else if (p.getCoverImage() != null && !p.getCoverImage().isEmpty()) {
+            imageUrls = List.of(p.getCoverImage());
         }
-        map.put("images", imageUrls);
+        map.put("imageUrls", imageUrls);
+        map.put("coverImage", p.getCoverImage() != null ? p.getCoverImage() : "");
+        map.put("category", Map.of(
+                "id", p.getCategoryId() != null ? String.valueOf(p.getCategoryId()) : "0",
+                "name", "", "icon", ""));
+        map.put("ip", Map.of("id", "", "name", "", "iconUrl", "", "characters", List.of()));
+        map.put("seller", Map.of(
+                "id", "", "nickname", "商家", "avatarUrl", "",
+                "creditScore", 100, "completedOrders", 0,
+                "goodRate", 1.0, "isVerified", false));
+        map.put("tradeType", "fixedPrice");
+        map.put("condition", "brandNew");
         map.put("status", p.getStatus());
         map.put("listedAt", p.getListedAt());
         map.put("createTime", p.getCreateTime());

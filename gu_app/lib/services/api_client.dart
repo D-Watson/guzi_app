@@ -13,9 +13,9 @@ class ApiClient {
   // Android emulator 用 10.0.2.2, iOS 模拟器用 localhost
   static String get _baseUrl {
     try {
-      if (Platform.isAndroid) return 'http://10.0.2.2:8080/api';
+      if (Platform.isAndroid) return 'http://10.0.2.2:8082/api';
     } catch (_) {}
-    return 'http://localhost:8080/api';
+    return 'http://localhost:8082/api';
   }
 
   final Dio _dio = Dio(BaseOptions(

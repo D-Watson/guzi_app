@@ -25,7 +25,7 @@ public class OrderController {
         List<Map<String, Object>> content = orders.stream().map(o -> {
             Map<String, Object> m = new LinkedHashMap<>();
             m.put("id", o.getId());
-            m.put("productId", o.getProductId());
+            m.put("productId", o.getProductId() != null ? String.valueOf(o.getProductId()) : "");
             m.put("productTitle", o.getProductTitle());
             m.put("productPrice", o.getProductPrice());
             m.put("productImageUrl", o.getProductImageUrl() != null ? o.getProductImageUrl() : "");
@@ -42,10 +42,10 @@ public class OrderController {
 
     @PostMapping
     public ApiResponse<Map<String, Object>> createOrder(@RequestBody CreateOrderRequest req) {
-        Order order = orderService.createOrder(req.getProductId(), req.getQuantity(), req.getTradeType());
+        Order order = orderService.createOrder(Long.parseLong(req.getProductId()), req.getQuantity(), req.getTradeType());
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("id", order.getId());
-        m.put("productId", order.getProductId());
+        m.put("productId", order.getProductId() != null ? String.valueOf(order.getProductId()) : "");
         m.put("productTitle", order.getProductTitle());
         m.put("productPrice", order.getProductPrice());
         m.put("productImageUrl", order.getProductImageUrl() != null ? order.getProductImageUrl() : "");
